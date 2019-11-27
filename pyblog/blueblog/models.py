@@ -3,6 +3,12 @@
 from blueblog import db
 from datetime import datetime
 
+# 用户
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(20))
+    password_hash = db.Column(db.String(128))
+
 class Article(db.Model):
     __tablename__ = 'article'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
