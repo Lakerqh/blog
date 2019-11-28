@@ -6,8 +6,13 @@ import router from './router'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import {http} from './api/index.js'
+import api from './api/api.js'
+
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+Vue.prototype.$http = http;
+Vue.prototype.$api = api;
 
 new Vue({
   el: '#app',
