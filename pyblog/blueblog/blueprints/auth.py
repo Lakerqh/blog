@@ -20,18 +20,6 @@ def model_to_dict(result):
         print(e.args)
         raise TypeError('Type error of parameter')
 # 数组转树机构
-# data = [
-# 	{'id': 1, 'parent_id': 0, 'name': "A"},
-# 	{'id': 2, 'parent_id': 0, 'name': "AA"},
-# 	{'id': 3, 'parent_id': 1, 'name': "AB"},
-# 	{'id': 4, 'parent_id': 3, 'name': "ABA"},
-# 	{'id': 5, 'parent_id': 3, 'name': "ABB"},
-# 	{'id': 6, 'parent_id': 3, 'name': "ABC"},
-# 	{'id': 7, 'parent_id': 1, 'name': "AC"},
-# 	{'id': 8, 'parent_id': 7, 'name': "ACA"},
-# 	{'id': 9, 'parent_id': 8, 'name': "ACAA"},
-# 	{'id': 10,'parent_id': 8, 'name': "ACAB"},
-# ]
 def list_to_tree(data):
     res = {}
     for v in data:
@@ -41,14 +29,6 @@ def list_to_tree(data):
         # 这里默认的关联关系，v的内存地址是一致的，所以后续修改之后，关联的结构数据也会变化。
         res.setdefault(v["parent_id"], {}).setdefault("children", []).append(v)
     return res[0]["children"]
-
-@auth_bp.route('/login')
-def login():
-    return 'login'
-
-@auth_bp.route('/logout')
-def logout():
-    return 'logout'
 
 # 提交会话
 @app.route('/addMessage',methods=['POST'])

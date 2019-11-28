@@ -8,6 +8,13 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20))
     password_hash = db.Column(db.String(128))
+    power = db.Column(db.Integer, default='0')
+
+# 菜单
+class Menu(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    parent_id = db.Column(db.Integer, primary_key=True)
 
 class Article(db.Model):
     __tablename__ = 'article'
