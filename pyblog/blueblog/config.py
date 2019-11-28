@@ -3,7 +3,7 @@
 DIALECT = 'mysql'
 DRIVER = 'pymysql'
 USERNAME = 'root'
-PASSWORD = ''
+PASSWORD = '123456'
 HOST = '49.235.111.163'
 PORT = '3306'
 DATABASE = 'blog'
