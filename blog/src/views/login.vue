@@ -71,7 +71,7 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background: #709acc;
+        background: #243369;
     }
 
     .box {
