@@ -54,13 +54,20 @@ def register():
     return result
 
 # 管理员审核注册账号申请
+@admin_bp.route('/check', methods=['GET','POST'])
+def check():
+    user_info = request.json
+    id = user_info.get('id')
+    user = User.query.get(id)
+    user.power = '1'
+    db.session.commit()
+    return '审核通过'
 
 # 菜单列表
 @admin_bp.route('/getmenu', methods=['GET', 'POST'])
 def getmenu():
     menu = Menu.query.all()
     list = model_to_dict(menu)
-    print(list)
     menulist = list_to_tree(list)
     return jsonify({"list": menulist, 'code': 200})
 
