@@ -1,10 +1,10 @@
 <template>
     <div id="home" class="common">
         <div class="header">
-            <h1><img class="logo" src="./../../static/img/logo1.png" alt=""> 图书智能管理系统</h1>
+            <h1><img class="logo" src="./../../static/img/login/logo1.png" alt=""> 图书智能管理系统</h1>
             <div class="setting">
-                <span><i class="el-icon-s-custom"></i></span>
-                <span><i class="el-icon-s-tools"></i></span>
+                <span>{{usermessage.username}}</span>
+                <span @click="signout"><i class="el-icon-s-tools"></i></span>
             </div>
         </div>
         <div class="slider">
@@ -25,6 +25,7 @@
     export default {
         data() {
             return {
+                usermessage: JSON.parse(localStorage.getItem('usermessage')),
                 list: [0],
                 menulist: [],
                 id:'',
@@ -50,7 +51,11 @@
             },
             selectNav(id){
                 this.id = id
-                console.log(id)
+            },
+            signout(){
+                this.$router.push({
+                    path:'/login'
+                })
             }
         }
     }
@@ -73,21 +78,19 @@
         margin-left: 20px;
     }
     .logo{
-        width: 35px;
-        height: 35px;
-        border-radius: 30px;
-        margin-right: 10px;
+        width: 70px;
+        height: 70px;
     }
     .setting{
         color: #ffffff;
         font-size: 22px;
         margin-right: 20px;
-        width: 65px;
         display: flex;
         justify-content: space-between;
     }
     .setting span{
         cursor: pointer;
+        margin-left: 15px;
     }
 
     .slider {

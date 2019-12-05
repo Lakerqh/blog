@@ -15,22 +15,15 @@ def user():
     username = user_info.get('username')
     password = user_info.get('password')
     user = User.query.filter(and_(User.username == username,User.password_hash == password)).first()
-    print(user)
+    user = model_to_dict(user)
+    del user['password_hash']
     if user:
-        user1 = User.query.filter(and_(User.username == username,User.password_hash == password, User.power == 1)).first()
-        if user1:
-            result = {
+        result = {
                 'code': 1,
-                'msg': '验证通过'
+                'msg': '验证通过',
+                'usermessage':user
             }
-            return result
-        else:
-            result = {
-                'code': 2,
-                'msg': '账号审核中'
-            }
-            return result
-
+        return result
     else:
         result = {
             'code': 0,
@@ -38,30 +31,24 @@ def user():
         }
         return result
 
-# 用户注册
-@admin_bp.route('/register', methods=['GET', 'POST'])
-def register():
+# 注册读者
+@admin_bp.route('/registeReader',methods=['GET','POST'])
+def registeReader():
     user_info = request.json
     username = user_info.get('username')
     password = user_info.get('password')
-    user = User(username=username, password_hash=password)
+    phone = user_info.get('phone')
+    email = user_info.get('email')
+    gender = user_info.get('gender')
+    user = User(username=username, password_hash=password, phone=phone, email=email, gender=gender)
     db.session.add(user)
     db.session.commit()
     result = {
         'code': 1,
-        'msg': '注册成功，请等待审核'
+        'msg': '注册成功'
     }
     return result
 
-# 管理员审核注册账号申请
-@admin_bp.route('/check', methods=['GET','POST'])
-def check():
-    user_info = request.json
-    id = user_info.get('id')
-    user = User.query.get(id)
-    user.power = '1'
-    db.session.commit()
-    return '审核通过'
 
 # 菜单列表
 @admin_bp.route('/getmenu', methods=['GET', 'POST'])
@@ -71,6 +58,7 @@ def getmenu():
     menulist = list_to_tree(list)
     return jsonify({"list": menulist, 'code': 200})
 
+# 
 # 模型转字典结构
 def model_to_dict(result):
     from collections import Iterable
